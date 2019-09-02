@@ -37,7 +37,7 @@ public class Fraction{//ketu kam filluar ndertimin e klases se objektit ku kam d
         return(this.numerator+"/"+this.denominator);
     }
     public double toDouble(){
-        double result = (double)(numerator/denominator);
+        double result = (double)(numerator)/(double)(denominator);
         return (result);
     }
     public Fraction add(Fraction other){
