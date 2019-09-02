@@ -1,0 +1,175 @@
+import java.util.*;
+public class C2Module2ProjectFractionCalculatorAdvance {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("This program is a fraction calculator");
+        System.out.println("It will add, subtract, multiply and  divide fractions until you type Q to quit");
+        System.out.println("Valid operations are the form \"[FRAC] [OPERATION] [FRAC]\"");
+        System.out.println("[FRAC] can be either a single integer or two integers separated by \"/\"");
+        System.out.println("[OPERATION] can be +, -, /, * or =.");
+            System.out.println("Enter an operation (q to quit):");
+            String str = scanner(input);
+            String quit = str.substring(0,1);
+            while (quit.charAt(0)!='q' && quit.charAt(0)!='Q' ){
+            boolean validOp = validString(str);
+            if (validOp) {
+                int z = str.indexOf(' ');
+                String str1 = str.substring(0, z);
+                Fraction fraction1 = getFraction(str1);
+
+                String str2 = str.substring(z + 1, z + 2);
+                char operation = Operationx(str2);
+
+                String str3 = str.substring(z + 3);
+                Fraction fraction2 = getFraction(str3);
+
+                if (operation == '+') {
+                    System.out.println(fraction1 + " + " + fraction2 + " = " + fraction1.add(fraction2));
+                } else if (operation == '-') {
+                    System.out.println(fraction1 + " - " + fraction2 + " = " + fraction1.subtract(fraction2));
+                } else if (operation == '*') {
+                    System.out.println(fraction1 + " * " + fraction2 + " = " + fraction1.multiply(fraction2));
+                } else if (operation == '/') {
+                    System.out.println(fraction1 + " / " + fraction2 + " = " + fraction1.divide(fraction2));
+                } else if (operation == '=') {
+                    System.out.println(fraction1 + " = " + fraction2 + " is " + fraction1.equals(fraction2));
+                }
+        }else {System.out.println("Invalid operation. Must be \"[FRAC] [OPERATION] [FRAC]\"");}
+                System.out.println("Enter an operation (q to quit):");
+                str = scanner(input);
+                quit = str.substring(0,1);
+    }
+    }
+
+    public static boolean validString(String str) {
+        for(int i=0;i<str.length();i++){
+            if(str.charAt(i)=='0'||str.charAt(i)=='1'||str.charAt(i)=='2'||str.charAt(i)=='3'||str.charAt(i)=='4'||
+                    str.charAt(i)=='5'||str.charAt(i)=='6'||str.charAt(i)=='7'||str.charAt(i)=='8'||str.charAt(i)=='9'||str.charAt(i)=='-'||str.charAt(i)==' '||
+                    str.charAt(i)=='+'||str.charAt(i)=='*'||str.charAt(i)=='/'||str.charAt(i)=='='){
+                boolean y=true;
+            }else return false;
+        }
+
+        int z = str.indexOf(' ');
+        if(z!=-1 && str.charAt(z+2)==' '){
+        String str1 = str.substring(0, z);
+        boolean valid1 = validFraction(str1);
+        if (valid1) {
+            String str2 = str.substring(z + 1, z + 2);
+            boolean valid2 = getOperation(str2);
+            if (valid2) {
+                String str3 = str.substring(z + 3);
+                boolean valid3 = validFraction(str3);
+                if (valid3) {
+                    return true;
+                }
+            }
+        }
+        return false;
+        }else return false;
+    }
+
+    public static boolean getOperation(String input) {
+        String operation = input;
+        if (operation.equals(Character.toString('+'))) {
+            return true;
+        } else if (operation.equals(Character.toString('-'))) {
+            return true;
+        } else if (operation.equals(Character.toString('*'))) {
+            return true;
+        } else if (operation.equals(Character.toString('/'))) {
+            return true;
+        } else if (operation.equals(Character.toString('='))) {
+            return true;
+        } else {
+            System.out.println("Invalid operation. Must be \"[FRAC] [OPERATION] [FRAC]\"");
+            return false;
+
+        }
+    }
+
+    public static String scanner(Scanner input){
+        String str = input.nextLine();
+        return str;
+    }
+
+    public static boolean validFraction(String input) {
+        if (input.indexOf('-') >= 1) {
+            return false;
+        } else if (input.indexOf('/') == 0) {
+            return false;
+        } else if (input.indexOf('/') != -1) {
+            int x = input.indexOf('/');
+            String num = input.substring(0, x);
+            String den = input.substring(x + 1);
+            if (num.length() == 0 || den.length() == 0) {
+                return false;
+            }
+            for (int j = 0; j < num.length(); j++) {
+                if (num.charAt(j) != '0' && num.charAt(j) != '1' && num.charAt(j) != '2' && num.charAt(j) != '3' && num.charAt(j) != '4' &&
+                        num.charAt(j) != '5' && num.charAt(j) != '6' && num.charAt(j) != '7' && num.charAt(j) != '8' && num.charAt(j) != '9') {
+                    return false;
+                }
+            }
+            for (int k = 0; k < den.length(); k++) {
+                if (den.charAt(k) != '0' && den.charAt(k) != '1' && den.charAt(k) != '2' && den.charAt(k) != '3' && den.charAt(k) != '4' &&
+                        den.charAt(k) != '5' && den.charAt(k) != '6' && den.charAt(k) != '7' && den.charAt(k) != '8' && den.charAt(k) != '9') {
+                    return false;
+                } else if (den.charAt(k) == '0') {
+                    int y = 0;
+                    y++;
+                    if (y == den.length()) {
+                        return false;
+                    }
+                }
+            }
+        } else {
+            for (int i = 0; i < input.length(); i++) {
+                if (input.charAt(i) != '0' && input.charAt(i) != '1' && input.charAt(i) != '2' && input.charAt(i) != '3' &&
+                        input.charAt(i) != '4' && input.charAt(i) != '5' && input.charAt(i) != '6' && input.charAt(i) != '7' &&
+                        input.charAt(i) != '8' && input.charAt(i) != '9') {
+                    return false;
+                }
+            }
+
+        }
+        return true;
+    }
+
+
+    public static Fraction getFraction(String number1) {
+        Fraction myFraction;
+        if (number1.indexOf('/') != -1) {
+            int x = number1.indexOf('/');
+            String num = number1.substring(0, x);
+            String den = number1.substring(x + 1);
+            int myNum = Integer.parseInt(num);
+            int myDen = Integer.parseInt(den);
+            myFraction = new Fraction(myNum, myDen);
+            return myFraction;
+        } else {
+            int myNum = Integer.parseInt(number1);
+            myFraction = new Fraction(myNum);
+            return myFraction;
+        }
+
+    }
+
+    public static char Operationx(String operation) {
+        if (operation.equals(Character.toString('+'))) {
+            return '+';
+        } else if (operation.equals(Character.toString('-'))) {
+            return '-';
+        } else if (operation.equals(Character.toString('*'))) {
+            return '*';
+        } else if (operation.equals(Character.toString('/'))) {
+            return '/';
+        } else if (operation.equals(Character.toString('='))) {
+            return '=';
+        } else if (operation.equals(Character.toString('q'))) {
+            return 'q';
+        } else  {
+            return 'Q';}
+
+    }
+}

@@ -1,0 +1,91 @@
+public class Fraction{//ketu kam filluar ndertimin e klases se objektit ku kam deklaruar dhe 2 fields,State
+    private int numerator;
+    private int denominator;
+//ketu kam filluar ndertimin e construktoreve te objektit
+    public Fraction(int numerator,int denominator){
+        this.numerator=numerator;
+        this.denominator=denominator;
+        this.numberRules();
+    }
+    public Fraction(int numerator){
+        this.numerator=numerator;
+        this.denominator=1;
+    }
+    public Fraction(){
+        this.numerator=0;
+        this.denominator=1;
+    }
+// ketu kam deklaruar methodat, behavior
+    public void numberRules(){
+        if (denominator==0){
+            throw new IllegalArgumentException("Enter another number please, denominator cannot be 0.");
+        }else if(denominator<0 && numerator<0){
+            this.numerator=Math.abs(numerator);
+            this.denominator=Math.abs(denominator);
+        }else if(denominator<0 && numerator>=0){
+            this.denominator=Math.abs(denominator);
+            this.numerator=-(Math.abs(numerator));
+        }
+    }
+    public int getNumerator(){
+        return (this.numerator);
+    }
+    public int getDenominator(){
+        return (this.denominator);
+    }
+    public String toString(){
+        return(this.numerator+"/"+this.denominator);
+    }
+    public double toDouble(){
+        double result = (double)(numerator/denominator);
+        return (result);
+    }
+    public Fraction add(Fraction other){
+        int newNum=this.numerator * other.denominator+ other.numerator * this.denominator;
+        int newDen=this.denominator * other.denominator;
+        Fraction newFraction= new Fraction(newNum,newDen);
+        newFraction.numberRules();
+        return (newFraction);
+    }
+    public Fraction subtract(Fraction other){
+        int newNum=this.numerator * other.denominator - other.numerator * this.denominator;
+        int newDen=this.denominator * other.denominator;
+        Fraction newFraction= new Fraction(newNum,newDen);
+        newFraction.numberRules();
+        return (newFraction);
+    }
+    public Fraction multiply(Fraction other) {
+        int newNum = this.numerator * other.numerator;
+        int newDen = this.denominator * other.denominator;
+        Fraction newFraction = new Fraction(newNum, newDen);
+        newFraction.numberRules();
+        return (newFraction);
+    }
+    public Fraction divide(Fraction other) {
+        int newNum = other.numerator * this.denominator;
+        int newDen = other.denominator * this.numerator;
+        Fraction newFraction = new Fraction(newDen, newNum);
+        newFraction.numberRules();
+        return (newFraction);
+    }
+    public boolean equals(Fraction other){
+        double a =this.toDouble();
+        double b = other.toDouble();
+        boolean ifEquals=(a==b);
+        return ifEquals;
+    }
+    public void toLowestTerms(){
+        while(numerator!=0 && denominator!=0){
+            int reminder=this.numerator%this.denominator;
+            this.numerator=this.denominator;
+            this.denominator=reminder;
+        }
+    }
+    public static int gcd(int a,int b){
+        if (b==0){
+            return a;
+        }else{
+            return (gcd(b,a%b));
+        }
+    }
+}

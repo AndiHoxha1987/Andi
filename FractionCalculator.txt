@@ -1,0 +1,126 @@
+import java.util.*;
+public class C2Module2ProjectFractionCalculator {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("This program is a fraction calculator");
+        System.out.println("It will add, subtract, multiply and  divide fractions until you type Q to quit");
+        System.out.println("Please enter your fractions in the form a/b, where a and b are integers.");
+        System.out.println("---------------------------------------------------------------------------------");
+        System.out.println("Please enter an operation (+, -, /, *, = or Q to quit):");
+        char operation =getOperation();
+        while(operation!='q') {
+            System.out.println("Please enter a fraction (a/b) or integer (a)");
+            Fraction fraction1 = getFraction(input);
+            System.out.println("Please enter a fraction (a/b) or integer (a)");
+            Fraction fraction2=getFraction(input);
+            if(operation =='+'){
+                System.out.println(fraction1 +" + "+ fraction2 +" = "+fraction1.add(fraction2));
+            }else if(operation =='-'){
+                System.out.println(fraction1 +" - "+ fraction2 +" = "+fraction1.subtract(fraction2));
+            }else if(operation =='*'){
+                System.out.println(fraction1 +" * "+ fraction2 +" = "+fraction1.multiply(fraction2));
+            }else if(operation =='/'){
+                System.out.println(fraction1 +" / "+ fraction2 +" = "+fraction1.divide(fraction2));
+            }else if(operation =='='){
+                System.out.println(fraction1 +" = "+ fraction2 +" is "+fraction1.equals(fraction2));
+            }
+            System.out.println("Please enter an operation (+, -, /, *, = or Q to quit):");
+            operation =getOperation();
+        }
+    }
+
+
+    private static char getOperation() {
+        Scanner input = new Scanner(System.in);
+        String operation = input.next();
+        if (operation.equals(Character.toString('+'))) {
+            return '+';
+        } else if (operation.equals(Character.toString('-'))) {
+            return '-';
+        } else if (operation.equals(Character.toString('*'))) {
+            return '*';
+        } else if (operation.equals(Character.toString('/'))) {
+            return '/';
+        } else if (operation.equals(Character.toString('='))) {
+            return '=';
+        } else if (operation.equals(Character.toString('q'))) {
+            return 'q';
+        } else if (operation.equals(Character.toString('Q'))) {
+            return 'Q';
+        } else {
+            System.out.println("Invalid input (+, -, /, *, = or Q to quit):");
+            return getOperation();
+
+        }
+    }
+
+
+    private static boolean validFraction(String input) {
+        if (input.indexOf('-') >= 1) {
+            return false;
+        } else if (input.indexOf('/') == 0) {
+            return false;
+        } else if (input.indexOf('/') != -1) {
+            int x= input.indexOf('/');
+            String num = input.substring(0,x);
+            String den = input.substring(x+1);
+            if(num.length()==0 || den.length()==0){
+                return false;
+            }
+            for(int j=0;j<num.length();j++){
+                if(num.charAt(j)!='0'&&num.charAt(j)!='1'&&num.charAt(j)!='2'&&num.charAt(j)!='3'&&num.charAt(j)!='4'&&
+                        num.charAt(j)!='5'&&num.charAt(j)!='6'&&num.charAt(j)!='7'&&num.charAt(j)!='8'&&num.charAt(j)!='9'){
+                    return false;
+                }
+            }
+            for(int k=0;k<den.length();k++){
+                if(den.charAt(k)!='0'&&den.charAt(k)!='1'&&den.charAt(k)!='2'&&den.charAt(k)!='3'&&den.charAt(k)!='4'&&
+                        den.charAt(k)!='5'&&den.charAt(k)!='6'&&den.charAt(k)!='7'&&den.charAt(k)!='8'&&den.charAt(k)!='9'){
+                    return false;
+                }else if (den.charAt(k)!='1'&&den.charAt(k)!='2'&&den.charAt(k)!='3'&&den.charAt(k)!='4'&&
+                        den.charAt(k)!='5'&&den.charAt(k)!='6'&&den.charAt(k)!='7'&&den.charAt(k)!='8'&&den.charAt(k)!='9'){
+                    int y=0;
+                    y++;
+                    if(y==den.length()){
+                        return false;
+                    }
+                }
+            }
+            }else{
+        for(int i=0;i<input.length();i++){
+            if(input.charAt(i)!='0'&& input.charAt(i)!='1'&& input.charAt(i)!='2'&& input.charAt(i)!='3'&&
+                    input.charAt(i)!='4'&& input.charAt(i)!='5' && input.charAt(i)!='6'&& input.charAt(i)!='7'&&
+                    input.charAt(i)!='8'&& input.charAt(i)!='9'){
+                return false;
+            }
+        }
+
+        }
+        return true;
+    }
+
+
+    private static Fraction getFraction(Scanner input) {
+        Fraction myFraction = new Fraction();
+        boolean str = true;
+        String number1 = input.next();
+        str = validFraction(number1);
+        if (str== false) {
+            System.out.println("Invalid fraction. Please enter a fraction (a/b) or integer (a), where a and b are integers and b is not zero:");
+            return getFraction(input);
+        } else if (number1.indexOf('/') != -1) {
+            int x = number1.indexOf('/');
+            String num = number1.substring(0, x);
+            String den = number1.substring(x + 1);
+            int myNum = Integer.parseInt(num);
+            int myDen = Integer.parseInt(den);
+            myFraction = new Fraction(myNum, myDen);
+            return myFraction;
+        } else {
+            int myNum = Integer.parseInt(number1);
+            myFraction = new Fraction(myNum);
+            return myFraction;
+        }
+
+    }
+}
